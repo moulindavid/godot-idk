@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="idkwat"
-run/main_scene="uid://detg26f7du142"
+run/main_scene="uid://bm41a6wvny60r"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
