@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bm41a6wvny60r"]
+[gd_scene load_steps=8 format=3 uid="uid://bm41a6wvny60r"]
 
 [ext_resource type="Script" uid="uid://brlrswchxrosp" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://detg26f7du142" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dpvaq336j0bgo" path="res://mob.tscn" id="2_h2yge"]
+[ext_resource type="AudioStream" uid="uid://dyvnxvj7aq4qu" path="res://art/gameover.wav" id="3_7mycd"]
+[ext_resource type="AudioStream" uid="uid://n38krwx3pt8e" path="res://art/House In a Forest Loop.ogg" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://cuyl7435dl0wc" path="res://hud.tscn" id="4_1bvp3"]
 
 [sub_resource type="Curve2D" id="Curve2D_7dm0k"]
@@ -16,7 +18,23 @@ scale = Vector2(1.00876, 1.00465)
 script = ExtResource("1_0xm2m")
 mob_scene = ExtResource("2_h2yge")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+visibility_layer = 524289
+offset_top = 7.96297
+offset_right = 476.0
+offset_bottom = 724.963
+color = Color(0.266269, 0.212768, 0.425832, 1)
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7mycd")
+volume_db = 6.0
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_lquwl")
+parameters/looping = false
+
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(239.898, 445.926)
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -30,12 +48,13 @@ one_shot = true
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(240, 450)
 
+[node name="HUD" parent="." instance=ExtResource("4_1bvp3")]
+layer = 5
+
 [node name="MobPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_7dm0k")
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
-
-[node name="HUD" parent="." instance=ExtResource("4_1bvp3")]
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
